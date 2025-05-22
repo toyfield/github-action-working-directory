@@ -1,0 +1,60 @@
+name: test
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+jobs:
+  test-without-path:
+    runs-on: ubuntu-latest
+    steps:
+      - name: pwd default
+        run: |
+          echo "Current working directory: $PWD"
+          echo "github.workspace: ${{ github.workspace }}"
+      - name: Checkout code without path
+        uses: actions/checkout@v4
+      - name: pwd after checkout
+        run: |
+          echo "Current working directory: $PWD"
+          echo "github.workspace: ${{ github.workspace }}"
+      - name: create directory
+        run: mkdir -p testdir
+      - name: pwd with working-directory
+        run: |
+          echo "Current working directory: $PWD"
+          echo "github.workspace: ${{ github.workspace }}"
+        working-directory: testdir
+      - name: after working-directory
+        run: |
+          echo "Current working directory: $PWD"
+          echo "github.workspace: ${{ github.workspace }}"
+  test-with-path:
+    runs-on: ubuntu-latest
+    steps:
+      - name: pwd default
+        run: |
+          echo "Current working directory: $PWD"
+          echo "github.workspace: ${{ github.workspace }}"
+      - name: Checkout code with path
+        uses: actions/checkout@v4
+        with:
+          path: pppp
+      - name: pwd after checkout
+        run: |
+          echo "Current working directory: $PWD"
+          echo "github.workspace: ${{ github.workspace }}"
+      - name: create directory
+        run: mkdir -p testdir
+      - name: pwd with working-directory
+        run: |
+          echo "Current working directory: $PWD"
+          echo "github.workspace: ${{ github.workspace }}"
+        working-directory: testdir
+      - name: after working-directory
+        run: |
+          echo "Current working directory: $PWD"
+          echo "github.workspace: ${{ github.workspace }}"
